@@ -9,7 +9,7 @@ class findLocation:
 
 
     def readFile(self):
-        df = pd.read_csv('../clustering_data.csv')
+        df = pd.read_csv('../../clustering_data.csv')
         user_city = self.readInput()
         if not self.checkCity(user_city, df):
             added_cluster = self.addCity(user_city)
@@ -26,7 +26,7 @@ class findLocation:
 
 
     def addCity(self, user_city):
-        df_coord = pd.read_csv('../lat_long_for_train.csv')
+        df_coord = pd.read_csv('../../lat_long_for_train.csv')
         l2 = df_coord.iloc[:, -1: -3: -1]
         lat, long = self.findCoord(user_city)
         kmeans = KMeans(n_clusters=400, random_state=20)
