@@ -2,7 +2,7 @@ import pandas as pd
 from sklearn.cluster import KMeans
 from geopy.geocoders import Nominatim
 
-class findLocation:
+class FindLocation:
 
     def __init__(self):
         self.citiesList = []
@@ -13,7 +13,6 @@ class findLocation:
         user_city = self.readInput()
         if not self.checkCity(user_city, df):
             added_cluster = self.addCity(user_city)
-            print(added_cluster)
             cities = df.loc[df['location_clusters'] == added_cluster, 'Locations']
             self.setCities(cities, user_city)
         else:
@@ -21,6 +20,7 @@ class findLocation:
             cluster = cluster.iloc[0]
             cities = df.loc[df['location_clusters'] == cluster, 'Locations']
             self.setCities(cities, user_city)
+
 
 
 
@@ -67,19 +67,19 @@ class findLocation:
         return self.citiesList
 
 
+
+
     def readInput(self):
-        #user_city = input("What city are you currently in? (Format: City, Country)")
-        city, country = "Marietta, Georgia".split(', ')
+        user_city = input("What city are you currently in? (Format: City, Country)")
+        city, country = user_city.split(', ')
         user_city = f"{country},{city}"
 
         return user_city
 
-locator = findLocation()
 
-locator.readFile()
-locations = locator.getCities()
-for loc in locations:
-    print(loc)
+
+
+
 
 
 
