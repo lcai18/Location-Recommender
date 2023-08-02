@@ -1,0 +1,33 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+
+.search-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f4f8; /* Light gray background color */
+}
+
+.searchField {
+  width: 400px;
+  background-color: #ffffff; /* White background color */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  padding: 10px;
+}
+
+.input-field {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  padding: 8px;
+}
+
+.search-results {
+  max-height : 20%
+}
+

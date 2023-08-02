@@ -11,18 +11,10 @@ const CityResults = ({ location }: Props) => {
   const searchResultsCity = searchState.simpCities;
   const searchHistory = searchState.searchHistory;
   const [isLoading, setIsLoading] = useState(true);
-  const [curCity, setCurCity] = useState("");
 
   const handleClick = (city: string) => {
     searchState.setCurrentCity(city);
   };
-  useEffect(() => {
-    console.log(location);
-    if (location) {
-      setCurCity(location);
-      console.log(location);
-    }
-  }, []);
 
   useEffect(() => {
     const fetchCityData = async (location: string) => {
@@ -34,7 +26,7 @@ const CityResults = ({ location }: Props) => {
           },
           body: JSON.stringify({ location }),
         });
-        console.log(curCity);
+        console.log(location);
 
         if (!response.ok) {
           throw new Error("Bad Response");
@@ -58,8 +50,11 @@ const CityResults = ({ location }: Props) => {
       }
     };
 
-    fetchCityData(curCity);
-  }, [curCity]);
+    if (location) {
+      setIsLoading(true);
+      fetchCityData(location);
+    }
+  }, [location]);
 
   return (
     <main className="whole-page">
@@ -76,9 +71,9 @@ const CityResults = ({ location }: Props) => {
                 href={`/cities/${location.city}`}
                 onClick={() => handleClick(location.city)}
               >
-                <h1>{location.city}</h1>
+                <h1 className="city-heading">{location.city}</h1>
               </Link>
-              <p>{location.summary}</p>
+              <p className="preview-summary">{location.summary}</p>
             </li>
           ))}
         </ul>

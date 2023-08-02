@@ -13,26 +13,30 @@ def main():
     return "default home page"
 
 
-@app.route('/citysearch')
+@app.route('/citysearch', methods=['POST'])
 @cross_origin()
 def citysearch():
     data = request.get_json()
-
+    print('hilohowyadoinlmfao')
     if 'location' not in data:
         return jsonify({'error': 'No location provided'}), 400
 
     location = data['location']
     visitPlan = PlanVisit(location)
     cities = []
+    summaries = []
     visitPlan.get_city_summary()
+    '''
     visitPlan.retrieve_hotels()
     visitPlan.retrieve_pictures_of_landmarks()
     visitPlan.retrieve_restaurants()
+    '''
     for loc in visitPlan.locations:
-        cities.append((loc, visitPlan.city_map_to_information[loc][3]))
+        cities.append(loc)
+        summaries.append(visitPlan.city_map_to_information[loc][3])
     g.visitPlan = visitPlan
 
-    return jsonify({'response': cities})
+    return jsonify({'cities': cities, 'summaries': summaries})
 
 
 @app.route('/citysearch/<string:loc>', methods=['GET'])
@@ -49,7 +53,7 @@ def get_city_info(loc):
         return jsonify({'error': 'City not found'}), 404
 
     # Do something with city_info (e.g., jsonify and return the information)
-    return jsonify({'hotel': city_info[0], 'restaurant': city_info[1], 'images': city_info[2], 'summary': city_info[3]})
+    return jsonify({'city': loc, 'summary': city_info[3], 'hotels': city_info[0], 'restaurants': city_info[1], 'image_links': city_info[2]})
 
 
 if __name__ == "__main__":

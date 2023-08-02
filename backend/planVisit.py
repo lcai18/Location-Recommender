@@ -15,7 +15,8 @@ class PlanVisit:
         self.API_KEY = 'AIzaSyCqmD2GRqA09VQKkomO7ddUF0OhJxWi5sM'
 
         for loc in self.locations:
-            self.city_map_to_information[loc] = [[], [], [], []]
+            self.city_map_to_information[loc] = [
+                [], [], [], []]  # hotel,restaurant,image,summary
 
     def find_place(self, location, type, radius=10000):
         # find place based on type
@@ -51,7 +52,6 @@ class PlanVisit:
 
         response = requests.get(url, params=params)
         data = response.json()
-        print(data)
         if 'result' in data:
             return data['result']
 
@@ -86,7 +86,6 @@ class PlanVisit:
     def find_landmarks(self, location):
         data = self.find_place(location, 'tourist-attraction')
         landmarks = []
-        print(data)
         if 'results' in data:
             for place in data['results']:
                 landmark = place['name']
@@ -125,14 +124,12 @@ class PlanVisit:
             for place_data in landmarks:
                 place_name = place_data['name']
                 photo_reference = place_data['photo_reference']
-                print(photo_reference)
                 image_url = self.find_pictures_of_landmarks(photo_reference)
                 if image_url:
                     images.append({'name': place_name, 'image_url': image_url})
                 break
             self.city_map_to_information[loc][2].append(
                 images)  # add image links to map structure
-            print(self.city_map_to_information)
 
     def find_restaurants(self, location):
         data = self.find_place(location, 'restaurant')
@@ -160,7 +157,6 @@ class PlanVisit:
 
             # Add the valid restaurants with links for this location
             self.city_map_to_information[loc][1].append(valid_restaurants)
-            print(self.city_map_to_information)
 
     def fetch_city_summary(self, location):
         url = "https://en.wikipedia.org/w/api.php"
@@ -176,7 +172,6 @@ class PlanVisit:
         data = response.json()
 
         pages = data['query']['pages']
-        print(pages)
         if pages:
             page_id = next(iter(pages))
             city_summary = pages[page_id]['extract']
@@ -189,14 +184,11 @@ class PlanVisit:
         for loc in self.locations:
             city, country = loc.split(',')
             summary = self.fetch_city_summary(city)
-            self.city_map_to_information[loc][3].append(summary)
-        print(self.city_map_to_information)
+            self.city_map_to_information[loc][3] = summary
 
-visitPlanner = PlanVisit("Paris, France")
+
 '''
 visitPlanner.retrieve_hotels()
 visitPlanner.retrieve_pictures_of_landmarks()
 visitPlanner.retrieve_restaurants()
 '''
-
-visitPlanner.get_city_summary()

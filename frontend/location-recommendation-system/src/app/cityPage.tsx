@@ -13,7 +13,7 @@ const CityResults = () => {
       try {
         // POST request to fetch city data based on the currentCity
         const response = await fetch(`http://127.0.0.1:5000/${cityData.city}`, {
-          method: "GET",
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
