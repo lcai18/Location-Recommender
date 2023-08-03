@@ -6,6 +6,8 @@ app = Flask(__name__)
 
 CORS(app)
 
+visitPlan = None
+
 
 @app.route('/')
 @cross_origin()
@@ -22,6 +24,7 @@ def citysearch():
         return jsonify({'error': 'No location provided'}), 400
 
     location = data['location']
+    global visitPlan
     visitPlan = PlanVisit(location)
     cities = []
     summaries = []
@@ -39,15 +42,17 @@ def citysearch():
     return jsonify({'cities': cities, 'summaries': summaries})
 
 
-@app.route('/citysearch/<string:loc>', methods=['GET'])
+@app.route('/cityres', methods=['POST'])
 @cross_origin()
-def get_city_info(loc):
-    if not hasattr(g, 'visitPlan'):
-        return jsonify({'error': 'No visitPlan object available'}), 400
+def get_city_info():
+    data = request.get_json()
+    loc = data['location']
+    print('swag')
 
-    visitPlan = g.visitPlan
-    visitPlan.get
-    city_info = visitPlan.city_map_to_information[loc]
+    global visitPlan
+    print(visitPlan.city_map_to_information[loc])
+
+    city_info = visitPlan.city_map_to_information["Encamp, Andorra"]
     # hotel,restaurant,image,summary
     if not city_info:
         return jsonify({'error': 'City not found'}), 404
