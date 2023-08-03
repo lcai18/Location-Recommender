@@ -1,9 +1,14 @@
 import { useState, useEffect } from "react";
 
+export interface HotelData {
+  name: string;
+  place_id: string;
+  url: string;
+}
 export interface CityData {
   city: string;
   summary: string;
-  hotels: string[];
+  hotels: HotelData[];
   restaurants: string[];
   image_links: string[];
 }
@@ -21,6 +26,7 @@ export interface searchState {
   setCurrentCity: (city: string) => void;
   addToSimpCity: (simpCity: SimpleCityData[]) => void;
   simpCities: SimpleCityData[];
+  addToHotelData: (hotelData: HotelData[]) => void;
 }
 
 export const useSearchState = (): searchState => {
@@ -41,11 +47,11 @@ export const useSearchState = (): searchState => {
   const addToSimpCity = (simpCitiesIn: SimpleCityData[]) => {
     setSimpCities(simpCitiesIn);
   };
-  useEffect(() => {
-    console.log(simpCities);
-    console.log("hey");
-  }, [simpCities]);
+  const [hotelData, setHotelData] = useState<HotelData[]>([]);
 
+  const addToHotelData = (hotelData: HotelData[]) => {
+    console.log(hotelData);
+  };
   return {
     searchHistory,
     addToSearchHistory,
@@ -55,5 +61,6 @@ export const useSearchState = (): searchState => {
     setCurrentCity,
     addToSimpCity,
     simpCities,
+    addToHotelData,
   };
 };

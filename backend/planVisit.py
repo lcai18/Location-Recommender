@@ -47,7 +47,7 @@ class PlanVisit:
         params = {
             'key': self.API_KEY,
             'place_id': place_id,
-            'fields': 'editorial_summary'
+            'fields': 'website'
         }
 
         response = requests.get(url, params=params)
@@ -81,7 +81,6 @@ class PlanVisit:
 
             # Add the valid hotels with links for this location
             self.city_map_to_information[loc][0].append(valid_hotels)
-            print(self.city_map_to_information)
 
     def find_landmarks(self, location):
         data = self.find_place(location, 'tourist-attraction')
@@ -188,7 +187,7 @@ class PlanVisit:
 
 
 '''
-visitPlanner.retrieve_hotels()
+
 visitPlanner.retrieve_pictures_of_landmarks()
 visitPlanner.retrieve_restaurants()
 '''

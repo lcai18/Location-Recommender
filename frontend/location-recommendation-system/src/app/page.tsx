@@ -1,5 +1,5 @@
 "use client";
-import CityResults from "./cityPage";
+import CityResults from "./citypage/cityPage";
 import Home from "./home";
 import { SearchStateProvider } from "./SearchStateContext";
 

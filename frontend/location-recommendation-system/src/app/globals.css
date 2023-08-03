@@ -3,6 +3,7 @@
 @import "tailwindcss/utilities";
 
 
+
 .search-bar {
   display: flex;
   justify-content: center;
@@ -26,8 +27,52 @@
   font-size: 16px;
   padding: 8px;
 }
-
-.search-results {
-  max-height : 20%
+.result-container {
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
+.init-results-field {
+  display: flex;
+  flex-direction: column; /* Set flex-direction to column */
+  justify-content: center;
+  align-items: center; /* Vertically align items to the middle */
+}
+.search-results {
+  max-width: 40%;
+  border: 1px solid #0646a6;
+  border-radius: 16px;
+  padding: 16px;
+  
+}
+
+.city-heading {
+  
+  font-weight: bold;
+  font-family: 'Montserrat', sans-serif;
+  text-decoration: underline;
+  font-size:125%
+}
+.city-heading:hover {
+  color: darkblue;
+}
+/* For modern browsers (excluding WebKit-based browsers) */
+.preview-summary {
+  font-family: 'Montserrat', sans-serif;
+  /* Limit the text to a maximum of 5 lines */
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 5; /* Number of lines to show */
+  -webkit-box-orient: vertical;
+  box-orient: vertical;
+  font-size:100%;
+}
+
+.result-heading {
+  display: flex;
+  justify-content: center;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 200%;
+  height: 20vh;
+}

@@ -1,23 +1,35 @@
-import { useSearchState } from "./searchState";
 import Link from "next/link";
+import { useEffect } from "react";
+interface HotelData {
+  name: string;
+  place_id: string;
+  url: string;
+}
+interface Props {
+  hotelData: HotelData[];
+  currentCity: string;
+}
 
-const HotelsPage = () => {
-  const searchState = useSearchState();
-  const cityData = searchState.countryData.find(
-    (location) => location.city === searchState.currentCity
-  );
-
+const HotelsPage = ({ hotelData, currentCity }: Props) => {
+  useEffect(() => {
+    console.log(hotelData[0]);
+  });
   return (
     <main className="whole-page">
-      <h1>Hotels in {searchState.currentCity}</h1>
+      <h1>Hotels in {currentCity}</h1>
       <ul>
-        {cityData?.hotels.map((hotel, index) => (
-          <li key={index}>{hotel}</li>
+        {hotelData.map((hotel, index) => (
+          <li key={index}>
+            <p>Name: {hotel.name}</p>
+            <a href={hotel.url} target="_blank" rel="noopener noreferrer">
+              View Hotel Website
+            </a>
+          </li>
         ))}
       </ul>
-      <Link href={`/restaurants/${searchState.currentCity}`}>
-        <a>Go to Restaurants</a>
-      </Link>
+      {/*<Link href={`/restaurants/${searchState.currentCity}`}>
+        go to restaurants
+      </Link>*/}
     </main>
   );
 };

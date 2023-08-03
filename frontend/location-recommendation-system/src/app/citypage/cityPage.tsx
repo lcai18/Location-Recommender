@@ -32,6 +32,8 @@ const CityResults = ({ location }: Props) => {
         // Parse json data and update the state
         const data = await response.json();
         searchState.setCityData(data);
+        //searchState.addToHotelData(data["hotels"][0]);
+        console.log(data);
       } catch (e) {
         setIsLoading(false);
         console.error("Fetch error:", e);
@@ -78,7 +80,9 @@ const CityResults = ({ location }: Props) => {
         </div>
       )}
 
-      {activeTab === "hotels" && cityData && <HotelsPage />}
+      {activeTab === "hotels" && cityData && (
+        <HotelsPage hotelData={cityData.hotels} currentCity={location} />
+      )}
 
       {activeTab === "restaurants" && cityData && <RestaurantsPage />}
     </main>

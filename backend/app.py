@@ -19,7 +19,6 @@ def main():
 @cross_origin()
 def citysearch():
     data = request.get_json()
-    print('hilohowyadoinlmfao')
     if 'location' not in data:
         return jsonify({'error': 'No location provided'}), 400
 
@@ -29,11 +28,11 @@ def citysearch():
     cities = []
     summaries = []
     visitPlan.get_city_summary()
-    '''
+
     visitPlan.retrieve_hotels()
-    visitPlan.retrieve_pictures_of_landmarks()
-    visitPlan.retrieve_restaurants()
-    '''
+    # visitPlan.retrieve_pictures_of_landmarks()
+    # visitPlan.retrieve_restaurants()
+
     for loc in visitPlan.locations:
         cities.append(loc)
         summaries.append(visitPlan.city_map_to_information[loc][3])
@@ -47,18 +46,16 @@ def citysearch():
 def get_city_info():
     data = request.get_json()
     loc = data['location']
-    print('swag')
 
     global visitPlan
-    print(visitPlan.city_map_to_information[loc])
 
-    city_info = visitPlan.city_map_to_information["Encamp, Andorra"]
+    city_info = visitPlan.city_map_to_information[loc]
     # hotel,restaurant,image,summary
     if not city_info:
         return jsonify({'error': 'City not found'}), 404
 
     # Do something with city_info (e.g., jsonify and return the information)
-    return jsonify({'city': loc, 'summary': city_info[3], 'hotels': city_info[0], 'restaurants': city_info[1], 'image_links': city_info[2]})
+    return jsonify({'city': loc, 'summary': city_info[3], 'hotels': city_info[0][0], 'restaurants': city_info[1], 'image_links': city_info[2]})
 
 
 if __name__ == "__main__":

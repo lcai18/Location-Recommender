@@ -26,7 +26,6 @@ const CityResults = ({ location }: Props) => {
           },
           body: JSON.stringify({ location }),
         });
-        console.log(location);
 
         if (!response.ok) {
           throw new Error("Bad Response");
@@ -58,26 +57,28 @@ const CityResults = ({ location }: Props) => {
 
   return (
     <main className="whole-page">
-      <h1>
-        Recommendation Results for {searchHistory[searchHistory.length - 1]}
-      </h1>
-      {isLoading ? (
-        <p>Loading...</p> // Show loading state while fetching data
-      ) : (
-        <ul>
-          {searchResultsCity.map((location, index) => (
-            <li key={index} className="search-results">
-              <Link
-                href={`/cities/${location.city}`}
-                onClick={() => handleClick(location.city)}
-              >
-                <h1 className="city-heading">{location.city}</h1>
-              </Link>
-              <p className="preview-summary">{location.summary}</p>
-            </li>
-          ))}
-        </ul>
-      )}
+      <div className="result-container">
+        <h1 className="result-heading">
+          Recommendation Results for: {location}
+        </h1>
+        {isLoading ? (
+          <p>Loading...</p> // Show loading state while fetching data
+        ) : (
+          <ul className="init-results-field">
+            {searchResultsCity.map((location, index) => (
+              <li key={index} className="search-results">
+                <Link
+                  href={`/citypage/?data=${JSON.stringify(location.city)}`}
+                  onClick={() => handleClick(location.city)}
+                >
+                  <h1 className="city-heading">{location.city}</h1>
+                </Link>
+                <p className="preview-summary">{location.summary}</p>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </main>
   );
 };
