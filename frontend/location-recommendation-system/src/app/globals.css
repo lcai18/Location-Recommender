@@ -2,7 +2,10 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-
+.whole-page {
+  min-height: 100vh;
+  background-color: lightgrey;
+}
 
 .search-bar {
   display: flex;
@@ -75,4 +78,69 @@
   font-family: 'Montserrat', sans-serif;
   font-size: 200%;
   height: 20vh;
+}
+.recommendation-heading {
+  display: flex;
+  justify-content: center;
+  font-size: 200%;
+  font-weight: bold;
+  text-decoration: underline;
+}
+.summary-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  overflow-y: scroll;
+  max-height:fit-content;
+}
+.detail-heading {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+}
+.detail-result {
+  font-family: 'Montserrat', sans-serif;
+  max-width: 60%;
+  font-size: large;
+}
+.hotel-item {
+  display: flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  font-size: 200%;
+  height: 30vh;
+}
+.hotel-name {
+  font-weight: bold;
+}
+.hotel-website {
+  text-decoration: underline;
+  color: darkblue;
+}
+.hotel-website:hover {
+  color: purple;
+}
+
+
+.tabs {
+  display: flex;
+  justify-content: space-around; /* Adjust this value to change the spacing */
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 20px 0; /* Adjust this value to change the vertical spacing */
+}
+
+.tabs li {
+  padding: 10px 20px; /* Adjust this value to change the horizontal spacing */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: rgb(182, 185, 220);;
+}
+
+.tabs li.active {
+  background-color: #0646a6;
+  color: white;
 }

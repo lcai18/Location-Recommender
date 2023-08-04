@@ -1,25 +1,31 @@
-import { useSearchState } from "./searchState";
 import Link from "next/link";
-
-const RestaurantsPage = () => {
-  const searchState = useSearchState();
-  const cityData = searchState.countryData.find(
-    (location) => location.city === searchState.currentCity
-  );
-
+import { useEffect } from "react";
+interface RestaurantData {
+  name: string;
+  place_id: string;
+  url: string;
+}
+interface Props {
+  restaurantData: RestaurantData[];
+  currentCity: string;
+}
+//map out three restaurants
+const HotelsPage = ({ restaurantData, currentCity }: Props) => {
   return (
     <main className="whole-page">
-      <h1>Restaurants in {searchState.currentCity}</h1>
+      <h1>Restaurants in {currentCity}</h1>
       <ul>
-        {cityData?.restaurants.map((restaurant, index) => (
-          <li key={index}>{restaurant}</li>
+        {restaurantData.map((restaurant, index) => (
+          <li key={index}>
+            <p>Name: {restaurant.name}</p>
+            <a href={restaurant.url} target="_blank" rel="noopener noreferrer">
+              View Restaurant Website
+            </a>
+          </li>
         ))}
       </ul>
-      <Link href={`/hotels/${searchState.currentCity}`}>
-        <a>Go to Hotels</a>
-      </Link>
     </main>
   );
 };
 
-export default RestaurantsPage;
+export default HotelsPage;

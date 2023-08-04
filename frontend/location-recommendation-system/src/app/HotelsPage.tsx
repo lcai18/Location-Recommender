@@ -9,27 +9,28 @@ interface Props {
   hotelData: HotelData[];
   currentCity: string;
 }
-
+//map out 3 hotels
 const HotelsPage = ({ hotelData, currentCity }: Props) => {
-  useEffect(() => {
-    console.log(hotelData[0]);
-  });
   return (
     <main className="whole-page">
-      <h1>Hotels in {currentCity}</h1>
-      <ul>
-        {hotelData.map((hotel, index) => (
-          <li key={index}>
-            <p>Name: {hotel.name}</p>
-            <a href={hotel.url} target="_blank" rel="noopener noreferrer">
-              View Hotel Website
-            </a>
-          </li>
-        ))}
-      </ul>
-      {/*<Link href={`/restaurants/${searchState.currentCity}`}>
-        go to restaurants
-      </Link>*/}
+      <div className="hotel-item">
+        <h1 className="detail-heading">Hotels in {currentCity}</h1>
+        <ul className="detail-result">
+          {hotelData.map((hotel, index) => (
+            <li key={index}>
+              <p className="hotel-name">Name: {hotel.name}</p>
+              <a
+                className="hotel-website"
+                href={hotel.url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View Hotel Website
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
     </main>
   );
 };

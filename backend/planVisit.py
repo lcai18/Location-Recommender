@@ -27,6 +27,7 @@ class PlanVisit:
             'radius': radius,
             'type': type
         }
+        print(type)
         response = requests.get(url, params=params)
         data = response.json()
         return data  # return json data
@@ -125,6 +126,7 @@ class PlanVisit:
                 photo_reference = place_data['photo_reference']
                 image_url = self.find_pictures_of_landmarks(photo_reference)
                 if image_url:
+                    print(place_name)
                     images.append({'name': place_name, 'image_url': image_url})
                 break
             self.city_map_to_information[loc][2].append(
@@ -134,7 +136,10 @@ class PlanVisit:
         data = self.find_place(location, 'restaurant')
         if 'results' in data:
             restaurants = data['results']
-            return restaurants
+            filtered_restaurants = [
+                restaurant for restaurant in restaurants if 'lodging' not in restaurant.get('types', [])]
+
+            return filtered_restaurants
         else:
             print(
                 f"Error: Unable to fetch restaurants. {data.get('error_message', '')}")
@@ -185,9 +190,10 @@ class PlanVisit:
             summary = self.fetch_city_summary(city)
             self.city_map_to_information[loc][3] = summary
 
-
+visitPlanner = PlanVisit("Paris, France")
+visitPlanner.retrieve_pictures_of_landmarks()
+print(visitPlanner.city_map_to_information['Antwerp, Belgium']);
 '''
 
-visitPlanner.retrieve_pictures_of_landmarks()
 visitPlanner.retrieve_restaurants()
 '''

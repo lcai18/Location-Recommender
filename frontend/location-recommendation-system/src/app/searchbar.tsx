@@ -7,7 +7,7 @@ const SearchBar = ({ onQuerySubmit }: QueryInputProps) => {
   const [query, setQuery] = useState<string>("");
 
   const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
+    e.preventDefault(); //pass city, country back to home component to start getting the data
     onQuerySubmit(query);
   };
 

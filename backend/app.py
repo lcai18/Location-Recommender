@@ -7,6 +7,8 @@ app = Flask(__name__)
 CORS(app)
 
 visitPlan = None
+cities = None
+summaries = None
 
 
 @app.route('/')
@@ -24,19 +26,20 @@ def citysearch():
 
     location = data['location']
     global visitPlan
+    global cities
+    global summaries
     visitPlan = PlanVisit(location)
     cities = []
     summaries = []
     visitPlan.get_city_summary()
 
     visitPlan.retrieve_hotels()
-    # visitPlan.retrieve_pictures_of_landmarks()
-    # visitPlan.retrieve_restaurants()
+    visitPlan.retrieve_pictures_of_landmarks()
+    visitPlan.retrieve_restaurants()
 
     for loc in visitPlan.locations:
         cities.append(loc)
         summaries.append(visitPlan.city_map_to_information[loc][3])
-    g.visitPlan = visitPlan
 
     return jsonify({'cities': cities, 'summaries': summaries})
 
@@ -55,7 +58,16 @@ def get_city_info():
         return jsonify({'error': 'City not found'}), 404
 
     # Do something with city_info (e.g., jsonify and return the information)
-    return jsonify({'city': loc, 'summary': city_info[3], 'hotels': city_info[0][0], 'restaurants': city_info[1], 'image_links': city_info[2]})
+    return jsonify({'city': loc, 'summary': city_info[3], 'hotels': city_info[0][0], 'restaurants': city_info[1][0], 'image_links': city_info[2][0]})
+
+
+@app.route('/cityressec', methods=['GET'])
+@cross_origin()
+def get_init_results():
+    global cities
+    global summaries
+
+    return jsonify({'cities': cities, 'summaries': summaries})
 
 
 if __name__ == "__main__":

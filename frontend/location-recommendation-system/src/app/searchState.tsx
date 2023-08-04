@@ -1,4 +1,13 @@
 import { useState, useEffect } from "react";
+export interface RestaurantData {
+  name: string;
+  place_id: string;
+  url: string;
+}
+export interface ImageData {
+  name: string;
+  image_url: string;
+}
 
 export interface HotelData {
   name: string;
@@ -9,8 +18,8 @@ export interface CityData {
   city: string;
   summary: string;
   hotels: HotelData[];
-  restaurants: string[];
-  image_links: string[];
+  restaurants: RestaurantData[];
+  image_links: ImageData[];
 }
 export interface SimpleCityData {
   city: string;
@@ -26,11 +35,11 @@ export interface searchState {
   setCurrentCity: (city: string) => void;
   addToSimpCity: (simpCity: SimpleCityData[]) => void;
   simpCities: SimpleCityData[];
-  addToHotelData: (hotelData: HotelData[]) => void;
 }
 
 export const useSearchState = (): searchState => {
   const [cityData, setCityData] = useState<CityData>({
+    //after parsing the city data map from backend load it in here
     city: "",
     summary: "",
     hotels: [],
@@ -42,16 +51,14 @@ export const useSearchState = (): searchState => {
   const [simpCities, setSimpCities] = useState<SimpleCityData[]>([]);
 
   const addToSearchHistory = (location: string) => {
+    //prev searches
     setSearchHistory((prevSearch) => [...prevSearch, location]);
   };
   const addToSimpCity = (simpCitiesIn: SimpleCityData[]) => {
+    //basic results of data showing just the summary and city
     setSimpCities(simpCitiesIn);
   };
-  const [hotelData, setHotelData] = useState<HotelData[]>([]);
 
-  const addToHotelData = (hotelData: HotelData[]) => {
-    console.log(hotelData);
-  };
   return {
     searchHistory,
     addToSearchHistory,
@@ -61,6 +68,5 @@ export const useSearchState = (): searchState => {
     setCurrentCity,
     addToSimpCity,
     simpCities,
-    addToHotelData,
   };
 };
