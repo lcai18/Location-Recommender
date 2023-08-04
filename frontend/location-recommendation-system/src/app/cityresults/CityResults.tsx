@@ -9,9 +9,7 @@ interface Props {
 const CityResults = ({ location }: Props) => {
   const searchState = useSearchStateContext();
   const searchResultsCity = searchState.simpCities;
-  const searchHistory = searchState.searchHistory;
   const [isLoading, setIsLoading] = useState(true);
-
   const handleClick = (city: string) => {
     searchState.setCurrentCity(city);
   };
@@ -62,7 +60,7 @@ const CityResults = ({ location }: Props) => {
           Recommendation Results for: {location}
         </h1>
         {isLoading ? (
-          <p>Loading...</p> // Show loading state while fetching data
+          <p className="loading-message">Loading... Please be patient</p> // Show loading state while fetching data
         ) : (
           <ul className="init-results-field">
             {searchResultsCity.map((location, index) => (

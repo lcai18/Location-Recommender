@@ -33,9 +33,9 @@ def citysearch():
     summaries = []
     visitPlan.get_city_summary()
 
-    # visitPlan.retrieve_hotels()
+    visitPlan.retrieve_hotels()
     visitPlan.retrieve_pictures_of_landmarks()
-    # visitPlan.retrieve_restaurants()
+    visitPlan.retrieve_restaurants()
 
     for loc in visitPlan.locations:
         cities.append(loc)
@@ -58,7 +58,7 @@ def get_city_info():
         return jsonify({'error': 'City not found'}), 404
 
     # Do something with city_info (e.g., jsonify and return the information)
-    return jsonify({'city': loc, 'summary': city_info[3], 'hotels': city_info[0], 'restaurants': city_info[1], 'image_links': city_info[2][0]})
+    return jsonify({'city': loc, 'summary': city_info[3], 'hotels': city_info[0][0], 'restaurants': city_info[1][0], 'image_links': city_info[2][0]})
 
 
 @app.route('/cityressec', methods=['GET'])

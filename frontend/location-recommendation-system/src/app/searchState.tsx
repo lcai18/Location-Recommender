@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 export interface RestaurantData {
   name: string;
+  photos: string;
   place_id: string;
   url: string;
 }
@@ -10,6 +11,7 @@ export interface ImageData {
 
 export interface HotelData {
   name: string;
+  photos: string;
   place_id: string;
   url: string;
 }

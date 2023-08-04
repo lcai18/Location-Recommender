@@ -25,7 +25,8 @@ class PlanVisit:
             'key': self.API_KEY,
             'location': location,
             'radius': radius,
-            'type': type
+            'type': type,
+            'fields': 'website,name,place_id,photos'
         }
         print(type)
         response = requests.get(url, params=params)
@@ -34,13 +35,25 @@ class PlanVisit:
 
     def get_name_and_id(self, choices):
         places = []
+        good_websites = 0 #break after 3 good websites
         for attraction in choices:
             place_name = attraction['name']
             place_id = attraction['place_id']
+            photos = attraction.get('photos', [])
+            photo_reference = None
+            if photos:
+                photo_reference = photos[0]['photo_reference']
+            photo_url = self.find_pictures_of_landmarks(photo_reference)
             website_details = self.get_website_links(place_id)
             website_link = website_details.get('website', None)
+            if website_link:
+                good_websites += 1
+            else:
+                continue
             places.append(
-                {'name': place_name, 'place_id': place_id, 'url': website_link})
+                {'name': place_name, 'place_id': place_id, 'url': website_link, 'photos':photo_url})
+            if good_websites == 3:
+                return places
         return places
 
     def get_website_links(self, place_id):
@@ -68,7 +81,7 @@ class PlanVisit:
 
     def retrieve_hotels(self):
         for loc in self.locations:
-            lat, long = self.locator.findCoord(loc)
+            lat, long = self.locator.find_long_lat(loc)
             coord = f"{lat}, {long}"
             hotels = self.find_nearby_hotels(coord)
             hotels_with_links = self.get_name_and_id(hotels)
@@ -103,7 +116,7 @@ class PlanVisit:
         params = {
             'key': self.API_KEY,
             'photoreference': photo_reference,
-            'maxwidth': 200,
+            'maxwidth': 500,
         }
 
         response = requests.get(url, params=params)
@@ -118,7 +131,7 @@ class PlanVisit:
     def retrieve_pictures_of_landmarks(self):
         images = {}
         for loc in self.locations:
-            lat, long = self.locator.findCoord(loc)  # coordinates of the city
+            lat, long = self.locator.find_long_lat(loc)  # coordinates of the city
             coord = f"{lat}, {long}"
             landmarks = self.find_landmarks(coord)
             images[loc] = []
@@ -148,7 +161,7 @@ class PlanVisit:
 
     def retrieve_restaurants(self):
         for loc in self.locations:
-            lat, long = self.locator.findCoord(loc)
+            lat, long = self.locator.find_long_lat(loc)
             coord = f"{lat}, {long}"
             restaurants = self.find_restaurants(coord)
             restaurants_with_links = self.get_name_and_id(restaurants)

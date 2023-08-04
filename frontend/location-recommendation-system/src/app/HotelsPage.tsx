@@ -2,6 +2,7 @@ import Link from "next/link";
 import { useEffect } from "react";
 interface HotelData {
   name: string;
+  photos: string;
   place_id: string;
   url: string;
 }
@@ -13,20 +14,21 @@ interface Props {
 const HotelsPage = ({ hotelData, currentCity }: Props) => {
   return (
     <main className="whole-page">
-      <div className="hotel-item">
+      <div className="hr-item">
         <h1 className="detail-heading">Hotels in {currentCity}</h1>
-        <ul className="detail-result">
+        <ul className="hr-list">
           {hotelData.map((hotel, index) => (
-            <li key={index}>
-              <p className="hotel-name">Name: {hotel.name}</p>
+            <li key={index} className="hr-details">
+              <p className="hr-name">Name: {hotel.name}</p>
               <a
-                className="hotel-website"
+                className="hr-website"
                 href={hotel.url}
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 View Hotel Website
               </a>
+              <img src={hotel.photos} className="hr-image" />
             </li>
           ))}
         </ul>

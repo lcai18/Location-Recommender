@@ -37,7 +37,7 @@ class FindLocation:
     def findCoord(self, user_city):
         latitude = 0
         longitude = 0
-        locatePlace = Nominatim(user_agent="RecommendedTrips")
+        locatePlace = Nominatim(user_agent="location-finder")
         addedLocation = locatePlace.geocode(user_city)
         if addedLocation is not None:
             latitude = addedLocation.latitude
@@ -46,6 +46,25 @@ class FindLocation:
             latitude = None
             longitude = None
         return latitude, longitude
+
+    def find_long_lat(self, loc):
+        # Load the CSV data into a DataFrame
+
+        city, country = loc.split(', ')
+        loc = f"{country},{city}"
+        df = pd.read_csv("clustering_data.csv")
+        # Search for the row that matches the given "city, country" string
+        row = df[df["Locations"] == loc]
+
+        if len(row) == 0:
+            # Return None if the city is not found in the CSV
+            return None
+        else:
+            # Retrieve the latitude and longitude from the matched row
+            latitude = row["Latitude"].values[0]
+            longitude = row["Longitude"].values[0]
+            return latitude, longitude
+
 
     def setCities(self, cities, user_city):
 
