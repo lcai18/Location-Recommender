@@ -13,17 +13,24 @@ interface Props {
 const HotelsPage = ({ restaurantData, currentCity }: Props) => {
   return (
     <main className="whole-page">
-      <h1>Restaurants in {currentCity}</h1>
-      <ul>
-        {restaurantData.map((restaurant, index) => (
-          <li key={index}>
-            <p>Name: {restaurant.name}</p>
-            <a href={restaurant.url} target="_blank" rel="noopener noreferrer">
-              View Restaurant Website
-            </a>
-          </li>
-        ))}
-      </ul>
+      <div className="hotel-item">
+        <h1 className="detail-heading">Restaurants in {currentCity}</h1>
+        <ul className="detail-result">
+          {restaurantData.map((restaurant, index) => (
+            <li key={index}>
+              <p className="hotel-name">Name: {restaurant.name}</p>
+              <a
+                className="hotel-website"
+                href={restaurant.url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View Restaurant Website
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
     </main>
   );
 };

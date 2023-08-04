@@ -116,19 +116,20 @@ class PlanVisit:
             return None
 
     def retrieve_pictures_of_landmarks(self):
-        images = []
+        images = {}
         for loc in self.locations:
             lat, long = self.locator.findCoord(loc)  # coordinates of the city
             coord = f"{lat}, {long}"
             landmarks = self.find_landmarks(coord)
-            for place_data in landmarks:
+            images[loc] = []
+            for i, place_data in enumerate(landmarks):
                 place_name = place_data['name']
                 photo_reference = place_data['photo_reference']
                 image_url = self.find_pictures_of_landmarks(photo_reference)
                 if image_url:
-                    print(place_name)
-                    images.append({'name': place_name, 'image_url': image_url})
-                break
+                    images[loc].append(image_url)
+                if i == 2:
+                    break
             self.city_map_to_information[loc][2].append(
                 images)  # add image links to map structure
 
@@ -190,9 +191,7 @@ class PlanVisit:
             summary = self.fetch_city_summary(city)
             self.city_map_to_information[loc][3] = summary
 
-visitPlanner = PlanVisit("Paris, France")
-visitPlanner.retrieve_pictures_of_landmarks()
-print(visitPlanner.city_map_to_information['Antwerp, Belgium']);
+
 '''
 
 visitPlanner.retrieve_restaurants()

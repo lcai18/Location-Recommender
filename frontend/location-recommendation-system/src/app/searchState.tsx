@@ -5,8 +5,7 @@ export interface RestaurantData {
   url: string;
 }
 export interface ImageData {
-  name: string;
-  image_url: string;
+  [location: string]: string[];
 }
 
 export interface HotelData {
@@ -19,7 +18,7 @@ export interface CityData {
   summary: string;
   hotels: HotelData[];
   restaurants: RestaurantData[];
-  image_links: ImageData[];
+  image_links: ImageData;
 }
 export interface SimpleCityData {
   city: string;
@@ -44,7 +43,7 @@ export const useSearchState = (): searchState => {
     summary: "",
     hotels: [],
     restaurants: [],
-    image_links: [],
+    image_links: {},
   });
   const [searchHistory, setSearchHistory] = useState<string[]>([]);
   const [currentCity, setCurrentCity] = useState<string>("");

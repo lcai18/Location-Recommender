@@ -13,7 +13,7 @@ const CityResults = ({ location }: Props) => {
   const cityData = searchState.cityData;
   const imageLinks = cityData.image_links;
   const [isLoading, setIsLoading] = useState(true);
-  const getImgUrl = (placeName: string): string | undefined => {
+  /*const getImgUrl = (placeName: string): string | undefined => {
     if (!imageLinks) {
       return undefined;
     }
@@ -22,7 +22,7 @@ const CityResults = ({ location }: Props) => {
     );
     console.log(placeName.split(",")[0]); //split get city
     return imageInfo?.image_url;
-  };
+  };*/
 
   useEffect(() => {
     const fetchCityData = async (location: string) => {
@@ -102,8 +102,10 @@ const CityResults = ({ location }: Props) => {
           {cityData && <p className="detail-result">{cityData.summary}</p>}
           <h3> Images of {location}</h3>
           <ul>
-            {cityData.image_links.map((link, index) => (
-              <li key={index}>{<img src={getImgUrl(location)} />}</li>
+            {imageLinks[location]?.map((imageUrl: string, index: number) => (
+              <li key={index}>
+                <img src={imageUrl} alt={`${location}-image-${index + 1}`} />
+              </li>
             ))}
           </ul>
         </div>
