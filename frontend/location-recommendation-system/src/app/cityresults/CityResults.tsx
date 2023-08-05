@@ -17,13 +17,16 @@ const CityResults = ({ location }: Props) => {
   useEffect(() => {
     const fetchCityData = async (location: string) => {
       try {
-        const response = await fetch("http://127.0.0.1:5000/citysearch", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ location }),
-        });
+        const response = await fetch(
+          "https://loc-rec-sys-backend-6bc3602721fc.herokuapp.com/citysearch",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ location }),
+          }
+        );
 
         if (!response.ok) {
           throw new Error("Bad Response");

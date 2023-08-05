@@ -14,7 +14,7 @@ const CityResultsPage = () => {
       setCurLoc(location);
       console.log(location);
     }
-  }, []);
+  });
   return (
     <SearchStateProvider>
       <CityResults location={CurLoc} />

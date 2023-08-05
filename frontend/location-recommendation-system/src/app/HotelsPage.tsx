@@ -1,5 +1,4 @@
-import Link from "next/link";
-import { useEffect } from "react";
+import Image from "next/image";
 interface HotelData {
   name: string;
   photos: string;

@@ -19,13 +19,16 @@ const CityResults = ({ location }: Props) => {
       try {
         console.log(location);
         // POST request to fetch city data based on the currentCity
-        const response = await fetch("http://127.0.0.1:5000/cityres", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ location }),
-        });
+        const response = await fetch(
+          "https://loc-rec-sys-backend-6bc3602721fc.herokuapp.com/cityres",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ location }),
+          }
+        );
 
         if (!response.ok) {
           throw new Error("Bad Response");
