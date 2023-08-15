@@ -1,4 +1,4 @@
-<img width="826" alt="image" src="https://github.com/lcai18/Location-Recommender/assets/123596664/1bb0e8a2-9e6b-4b4f-9b4b-3999e536f2ba"># Globetrotter's Guide: ML-Powered Vacation Spot Classifier
+# Globetrotter's Guide: ML-Powered Vacation Spot Classifier
 
 ## Description 
 
