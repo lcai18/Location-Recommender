@@ -1,7 +1,6 @@
 from recommendLocation import FindLocation
 import requests
 import pandas as pd
-# places api key : AIzaSyCqmD2GRqA09VQKkomO7ddUF0OhJxWi5sMx
 
 
 class PlanVisit:
@@ -12,7 +11,7 @@ class PlanVisit:
         self.locator = FindLocation(user_city)
         self.locator.readFile()
         self.locations = self.locator.getCities()
-        self.API_KEY = 'AIzaSyCqmD2GRqA09VQKkomO7ddUF0OhJxWi5sM'
+        self.API_KEY = 'YOUR_API_KEY'
 
         for loc in self.locations:
             self.city_map_to_information[loc] = [
