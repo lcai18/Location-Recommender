@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <main className="whole-page">
       <h1 className="welcome-message">
-        We travel not to escape life, but for life not to escape us.” ...
+        "We travel not to escape life, but for life not to escape us...”
       </h1>
       <SearchBar onQuerySubmit={handleSubmit} />
     </main>
